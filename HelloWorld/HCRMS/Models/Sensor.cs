@@ -21,7 +21,7 @@
         }
 
         // Updates the reading and checks the sensor status
-        public void UpdateValue(double newValue)
+        public virtual void UpdateValue(double newValue)
         {
             CurrentValue = newValue;
 
