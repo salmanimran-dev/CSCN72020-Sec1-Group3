@@ -75,6 +75,7 @@
             btnSimulate.Size = new Size(161, 20);
             btnSimulate.TabIndex = 3;
             btnSimulate.Text = "Simulate Next Reading";
+            btnSimulate.Click += btnSimulate_Click;
             // 
             // Form1
             // 
