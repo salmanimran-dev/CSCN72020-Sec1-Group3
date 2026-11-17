@@ -1,5 +1,6 @@
+
 using System;
-using System.Windows.Forms; 
+using System.Windows.Forms;
 using HCRMS.Models;
 
 namespace HCRMS
@@ -9,39 +10,64 @@ namespace HCRMS
         [STAThread]
         static void Main()
         {
-            // 1. Create a Room
+            // Create an ICU room
             Room icuRoom = new Room("ICU-01", "Intensive Care");
 
-            // 2. Create a Temperature Sensor
-            Sensor tempSensor = new Sensor("TEMP-01", "°C", 25.0, 30.0);
+            // =====================================
+            // P01-P09 - Temperature Sensor Tests
+            // =====================================
+
+            Sensor tempSensor = new Sensor(
+                "TEMP-01", "°C", 25.0, 30.0);
+
             icuRoom.Sensors.Add(tempSensor);
 
-            // 3. Test Normal
+            // Normal
             tempSensor.UpdateValue(22.5);
-            string normalMsg = $"Room: {icuRoom.RoomID}\nSensor: {tempSensor.DeviceID}\nValue: {tempSensor.CurrentValue}{tempSensor.Unit}\nStatus: {tempSensor.Status}";
-            MessageBox.Show(normalMsg, "Normal Reading Test");
+            MessageBox.Show(
+                $"Room: {icuRoom.RoomID}\n" +
+                $"Sensor: {tempSensor.DeviceID}\n" +
+                $"Value: {tempSensor.CurrentValue}{tempSensor.Unit}\n" +
+                $"Status: {tempSensor.Status}",
+                "Normal Reading Test");
 
-            // 4. Test Warning
+            // Warning
             tempSensor.UpdateValue(27.0);
-            string warningMsg = $"Room: {icuRoom.RoomID}\nSensor: {tempSensor.DeviceID}\nValue: {tempSensor.CurrentValue}{tempSensor.Unit}\nStatus: {tempSensor.Status}";
-            MessageBox.Show(warningMsg, "Warning Reading Test");
+            MessageBox.Show(
+                $"Room: {icuRoom.RoomID}\n" +
+                $"Sensor: {tempSensor.DeviceID}\n" +
+                $"Value: {tempSensor.CurrentValue}{tempSensor.Unit}\n" +
+                $"Status: {tempSensor.Status}",
+                "Warning Reading Test");
 
-            // 5. Test Critical
+            // Critical
             tempSensor.UpdateValue(32.0);
-            string criticalMsg = $"Room: {icuRoom.RoomID}\nSensor: {tempSensor.DeviceID}\nValue: {tempSensor.CurrentValue}{tempSensor.Unit}\nStatus: {tempSensor.Status}";
-            MessageBox.Show(criticalMsg, "Critical Reading Test");
+            MessageBox.Show(
+                $"Room: {icuRoom.RoomID}\n" +
+                $"Sensor: {tempSensor.DeviceID}\n" +
+                $"Value: {tempSensor.CurrentValue}{tempSensor.Unit}\n" +
+                $"Status: {tempSensor.Status}",
+                "Critical Reading Test");
 
 
-            // P10 - Create sensors
-            HumiditySensor humidity = new HumiditySensor("HUM-01");
-            OxygenSensor oxygen = new OxygenSensor("OXY-01");
-            AirQualitySensor airQuality = new AirQualitySensor("AQI-01");
+            // =====================================
+            // P10 - Humidity, Oxygen, Air Quality
+            // =====================================
+
+            HumiditySensor humidity =
+                new HumiditySensor("HUM-01");
+
+            OxygenSensor oxygen =
+                new OxygenSensor("OXY-01");
+
+            AirQualitySensor airQuality =
+                new AirQualitySensor("AQI-01");
 
             icuRoom.Sensors.Add(humidity);
             icuRoom.Sensors.Add(oxygen);
             icuRoom.Sensors.Add(airQuality);
 
-            // Test normal readings
+            // Normal readings
             humidity.UpdateValue(45.0);
             oxygen.UpdateValue(20.9);
             airQuality.UpdateValue(50.0);
@@ -52,7 +78,7 @@ namespace HCRMS
                 $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
                 "P10 - Normal Reading Test");
 
-            // Test warning readings
+            // Warning readings
             humidity.UpdateValue(65.0);
             oxygen.UpdateValue(23.2);
             airQuality.UpdateValue(120.0);
@@ -63,7 +89,7 @@ namespace HCRMS
                 $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
                 "P10 - Warning Reading Test");
 
-            // Test critical readings
+            // Critical readings
             humidity.UpdateValue(80.0);
             oxygen.UpdateValue(24.0);
             airQuality.UpdateValue(180.0);
@@ -74,31 +100,86 @@ namespace HCRMS
                 $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
                 "P10 - Critical Reading Test");
 
-            
-            // P12 - Create a power sensor for the ICU room.
-            PowerSensor power = new PowerSensor("PWR-01");
+
+            // =====================================
+            // P12 - Power Sensor Tests
+            // =====================================
+
+            PowerSensor power =
+                new PowerSensor("PWR-01");
+
             icuRoom.Sensors.Add(power);
 
-            // Test 1: Normal power reading.
+            // Normal power
             power.UpdateValue(220);
+
             MessageBox.Show(
-                $"Power: {power.CurrentValue}{power.Unit}\nStatus: {power.Status}",
+                $"Power: {power.CurrentValue}{power.Unit}\n" +
+                $"Status: {power.Status}",
                 "P12 - Normal Power");
 
-            // Test 2: Low voltage warning.
+            // Low voltage warning
             power.UpdateValue(205);
+
             MessageBox.Show(
-                $"Power: {power.CurrentValue}{power.Unit}\nStatus: {power.Status}",
+                $"Power: {power.CurrentValue}{power.Unit}\n" +
+                $"Status: {power.Status}",
                 "P12 - Low Voltage");
 
-            // Test 3: Power outage.
+            // Power outage
             power.UpdateValue(0);
+
             MessageBox.Show(
-                $"Power: {power.CurrentValue}{power.Unit}\nStatus: {power.Status}",
+                $"Power: {power.CurrentValue}{power.Unit}\n" +
+                $"Status: {power.Status}",
                 "P12 - Power Outage");
 
 
-            // 6. Launch the actual Dashboard (Form1) so the app doesn't close immediately
+            // =====================================
+            // P11 - Smoke and Pressure Sensors
+            // =====================================
+
+            SmokeSensor smoke =
+                new SmokeSensor("SMOKE-01");
+
+            PressureSensor pressure =
+                new PressureSensor("PRESS-01");
+
+            icuRoom.Sensors.Add(smoke);
+            icuRoom.Sensors.Add(pressure);
+
+            // P11 - Normal readings
+            smoke.UpdateValue(5.0);
+            pressure.UpdateValue(5.0);
+
+            MessageBox.Show(
+                $"Smoke: {smoke.CurrentValue} {smoke.Unit} - {smoke.Status}\n" +
+                $"Pressure: {pressure.CurrentValue} {pressure.Unit} - {pressure.Status}",
+                "P11 - Normal Reading Test");
+
+            // P11 - Warning readings
+            smoke.UpdateValue(15.0);
+            pressure.UpdateValue(15.0);
+
+            MessageBox.Show(
+                $"Smoke: {smoke.CurrentValue} {smoke.Unit} - {smoke.Status}\n" +
+                $"Pressure: {pressure.CurrentValue} {pressure.Unit} - {pressure.Status}",
+                "P11 - Warning Reading Test");
+
+            // P11 - Critical readings
+            smoke.UpdateValue(30.0);
+            pressure.UpdateValue(25.0);
+
+            MessageBox.Show(
+                $"Smoke: {smoke.CurrentValue} {smoke.Unit} - {smoke.Status}\n" +
+                $"Pressure: {pressure.CurrentValue} {pressure.Unit} - {pressure.Status}",
+                "P11 - Critical Reading Test");
+
+
+            // =====================================
+            // Launch Windows Forms Dashboard
+            // =====================================
+
             Application.Run(new Form1());
         }
     }
