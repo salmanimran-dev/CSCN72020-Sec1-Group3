@@ -74,6 +74,30 @@ namespace HCRMS
                 $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
                 "P10 - Critical Reading Test");
 
+            
+            // P12 - Create a power sensor for the ICU room.
+            PowerSensor power = new PowerSensor("PWR-01");
+            icuRoom.Sensors.Add(power);
+
+            // Test 1: Normal power reading.
+            power.UpdateValue(220);
+            MessageBox.Show(
+                $"Power: {power.CurrentValue}{power.Unit}\nStatus: {power.Status}",
+                "P12 - Normal Power");
+
+            // Test 2: Low voltage warning.
+            power.UpdateValue(205);
+            MessageBox.Show(
+                $"Power: {power.CurrentValue}{power.Unit}\nStatus: {power.Status}",
+                "P12 - Low Voltage");
+
+            // Test 3: Power outage.
+            power.UpdateValue(0);
+            MessageBox.Show(
+                $"Power: {power.CurrentValue}{power.Unit}\nStatus: {power.Status}",
+                "P12 - Power Outage");
+
+
             // 6. Launch the actual Dashboard (Form1) so the app doesn't close immediately
             Application.Run(new Form1());
         }
