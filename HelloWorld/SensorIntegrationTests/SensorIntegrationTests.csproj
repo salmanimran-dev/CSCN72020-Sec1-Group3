@@ -1,0 +1,19 @@
+﻿
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net11.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../HCRMS/Models/Device.cs" Link="Models/Device.cs" />
+    <Compile Include="../HCRMS/Models/Sensor.cs" Link="Models/Sensor.cs" />
+    <Compile Include="../HCRMS/Models/TemperaturSensor.cs" Link="Models/TemperaturSensor.cs" />
+    <Compile Include="../HCRMS/Models/PowerSensor.cs" Link="Models/PowerSensor.cs" />
+    <Compile Include="../HCRMS/Models/Room.cs" Link="Models/Room.cs" />
+  </ItemGroup>
+
+</Project>
