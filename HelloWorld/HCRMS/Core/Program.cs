@@ -31,6 +31,49 @@ namespace HCRMS
             string criticalMsg = $"Room: {icuRoom.RoomID}\nSensor: {tempSensor.DeviceID}\nValue: {tempSensor.CurrentValue}{tempSensor.Unit}\nStatus: {tempSensor.Status}";
             MessageBox.Show(criticalMsg, "Critical Reading Test");
 
+
+            // P10 - Create sensors
+            HumiditySensor humidity = new HumiditySensor("HUM-01");
+            OxygenSensor oxygen = new OxygenSensor("OXY-01");
+            AirQualitySensor airQuality = new AirQualitySensor("AQI-01");
+
+            icuRoom.Sensors.Add(humidity);
+            icuRoom.Sensors.Add(oxygen);
+            icuRoom.Sensors.Add(airQuality);
+
+            // Test normal readings
+            humidity.UpdateValue(45.0);
+            oxygen.UpdateValue(20.9);
+            airQuality.UpdateValue(50.0);
+
+            MessageBox.Show(
+                $"Humidity: {humidity.CurrentValue}% - {humidity.Status}\n" +
+                $"Oxygen: {oxygen.CurrentValue}% - {oxygen.Status}\n" +
+                $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
+                "P10 - Normal Reading Test");
+
+            // Test warning readings
+            humidity.UpdateValue(65.0);
+            oxygen.UpdateValue(23.2);
+            airQuality.UpdateValue(120.0);
+
+            MessageBox.Show(
+                $"Humidity: {humidity.CurrentValue}% - {humidity.Status}\n" +
+                $"Oxygen: {oxygen.CurrentValue}% - {oxygen.Status}\n" +
+                $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
+                "P10 - Warning Reading Test");
+
+            // Test critical readings
+            humidity.UpdateValue(80.0);
+            oxygen.UpdateValue(24.0);
+            airQuality.UpdateValue(180.0);
+
+            MessageBox.Show(
+                $"Humidity: {humidity.CurrentValue}% - {humidity.Status}\n" +
+                $"Oxygen: {oxygen.CurrentValue}% - {oxygen.Status}\n" +
+                $"Air Quality: {airQuality.CurrentValue} AQI - {airQuality.Status}",
+                "P10 - Critical Reading Test");
+
             // 6. Launch the actual Dashboard (Form1) so the app doesn't close immediately
             Application.Run(new Form1());
         }
