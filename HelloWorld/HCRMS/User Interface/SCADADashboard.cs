@@ -104,6 +104,21 @@ namespace HCRMS
             ShowPage(btnNavAlarmHistory);
         }
 
+        private void btnNavControls_Click(object? sender, EventArgs e)
+        {
+            ShowPage(btnNavControls);
+        }
+
+        private void btnNavHistoricalData_Click(object? sender, EventArgs e)
+        {
+            ShowPage(btnNavHistoricalData);
+        }
+
+        private void btnNavSettings_Click(object? sender, EventArgs e)
+        {
+            ShowPage(btnNavSettings);
+        }
+
         private void btnAcknowledge_Click(object? sender, EventArgs e)
         {
             List<SensorAlert> alerts = new List<SensorAlert>();
@@ -148,15 +163,20 @@ namespace HCRMS
         // Dashboard updates
         // =====================================
 
-        // Switches between the Dashboard and Alarm History pages
+        // Shows the page for the clicked sidebar button and highlights that button
         private void ShowPage(Button navButton)
         {
-            bool showAlarms = navButton == btnNavAlarmHistory;
-            tlpDashboard.Visible = !showAlarms;
-            dgvAlarms.Visible = showAlarms;
+            tlpDashboard.Visible = navButton == btnNavDashboard;
+            dgvAlarms.Visible = navButton == btnNavAlarmHistory;
+            lblControlsPage.Visible = navButton == btnNavControls;
+            lblHistoricalDataPage.Visible = navButton == btnNavHistoricalData;
+            lblSettingsPage.Visible = navButton == btnNavSettings;
 
-            btnNavDashboard.BackColor = showAlarms ? NavNormal : NavSelected;
-            btnNavAlarmHistory.BackColor = showAlarms ? NavSelected : NavNormal;
+            Button[] navButtons = { btnNavDashboard, btnNavControls, btnNavAlarmHistory, btnNavHistoricalData, btnNavSettings };
+            foreach (Button button in navButtons)
+            {
+                button.BackColor = button == navButton ? NavSelected : NavNormal;
+            }
 
             RefreshAlarmHistory(true);
         }
