@@ -8,4 +8,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <!-- P17: SQLite logging -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
+    <!-- Native SQLite 2.1.11 has a known vulnerability (CVE-2025-6965), so use the fixed version -->
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12" />
+  </ItemGroup>
+
+  <!-- Optional simulated data files (IR-03). If none exist, the built-in simulator is used. -->
+  <ItemGroup>
+    <None Update="SimulatedData\**\*.csv" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

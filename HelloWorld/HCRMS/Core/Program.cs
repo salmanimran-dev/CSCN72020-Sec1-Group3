@@ -177,10 +177,10 @@ namespace HCRMS
 
 
             // =====================================
-            // Launch Windows Forms Dashboard
+            // P17 - Launch the SCADA dashboard
             // =====================================
 
-            Application.Run(new Form1());
+            Application.Run(new SCADADashboard());
         }
     }
 }
