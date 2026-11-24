@@ -55,6 +55,9 @@ namespace HCRMS
             colLevel = new ColumnHeader();
             btnAcknowledge = new Button();
             dgvAlarms = new DataGridView();
+            lblControlsPage = new Label();
+            lblHistoricalDataPage = new Label();
+            lblSettingsPage = new Label();
             statusStrip = new StatusStrip();
             lblDatabase = new ToolStripStatusLabel();
             tmrPoll = new System.Windows.Forms.Timer(components);
@@ -122,10 +125,9 @@ namespace HCRMS
             btnNavDashboard.Click += btnNavDashboard_Click;
             //
             // btnNavControls
-            // Controls page is added in P18
+            // Controls page is filled in by P18
             //
             btnNavControls.BackColor = Color.FromArgb(18, 38, 63);
-            btnNavControls.Enabled = false;
             btnNavControls.FlatAppearance.BorderSize = 0;
             btnNavControls.FlatStyle = FlatStyle.Flat;
             btnNavControls.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -138,6 +140,7 @@ namespace HCRMS
             btnNavControls.Text = "Controls";
             btnNavControls.TextAlign = ContentAlignment.MiddleLeft;
             btnNavControls.UseVisualStyleBackColor = false;
+            btnNavControls.Click += btnNavControls_Click;
             //
             // btnNavAlarmHistory
             //
@@ -157,10 +160,9 @@ namespace HCRMS
             btnNavAlarmHistory.Click += btnNavAlarmHistory_Click;
             //
             // btnNavHistoricalData
-            // Historical Data page is added in Sprint 3 (graphs)
+            // Historical Data page (graphs) is filled in by P19
             //
             btnNavHistoricalData.BackColor = Color.FromArgb(18, 38, 63);
-            btnNavHistoricalData.Enabled = false;
             btnNavHistoricalData.FlatAppearance.BorderSize = 0;
             btnNavHistoricalData.FlatStyle = FlatStyle.Flat;
             btnNavHistoricalData.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -173,12 +175,12 @@ namespace HCRMS
             btnNavHistoricalData.Text = "Historical Data";
             btnNavHistoricalData.TextAlign = ContentAlignment.MiddleLeft;
             btnNavHistoricalData.UseVisualStyleBackColor = false;
+            btnNavHistoricalData.Click += btnNavHistoricalData_Click;
             //
             // btnNavSettings
-            // Settings page (thresholds) is added with the ThresholdManager
+            // Settings page (thresholds) is filled in with the ThresholdManager (P13)
             //
             btnNavSettings.BackColor = Color.FromArgb(18, 38, 63);
-            btnNavSettings.Enabled = false;
             btnNavSettings.FlatAppearance.BorderSize = 0;
             btnNavSettings.FlatStyle = FlatStyle.Flat;
             btnNavSettings.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -191,6 +193,7 @@ namespace HCRMS
             btnNavSettings.Text = "Settings";
             btnNavSettings.TextAlign = ContentAlignment.MiddleLeft;
             btnNavSettings.UseVisualStyleBackColor = false;
+            btnNavSettings.Click += btnNavSettings_Click;
             //
             // tlpContent
             //
@@ -254,10 +257,13 @@ namespace HCRMS
             lblCriticalBanner.Visible = false;
             //
             // pnlPages
-            // Holds the Dashboard page and the Alarm History page
+            // Holds one page for each sidebar button
             //
             pnlPages.Controls.Add(tlpDashboard);
             pnlPages.Controls.Add(dgvAlarms);
+            pnlPages.Controls.Add(lblControlsPage);
+            pnlPages.Controls.Add(lblHistoricalDataPage);
+            pnlPages.Controls.Add(lblSettingsPage);
             pnlPages.Dock = DockStyle.Fill;
             pnlPages.Name = "pnlPages";
             pnlPages.TabIndex = 2;
@@ -381,6 +387,42 @@ namespace HCRMS
             dgvAlarms.RowHeadersVisible = false;
             dgvAlarms.TabIndex = 1;
             dgvAlarms.Visible = false;
+            // 
+            // lblControlsPage
+            // 
+            lblControlsPage.BackColor = Color.White;
+            lblControlsPage.Dock = DockStyle.Fill;
+            lblControlsPage.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblControlsPage.ForeColor = Color.FromArgb(18, 38, 63);
+            lblControlsPage.Name = "lblControlsPage";
+            lblControlsPage.Padding = new Padding(24);
+            lblControlsPage.TabIndex = 2;
+            lblControlsPage.Text = "Controls\n\nEquipment controls for the selected room (HVAC, ventilation fans, humidifier, dehumidifier and alarm) will appear here.\n\nComing in P18 – Integrate controllers, alerts and test.";
+            lblControlsPage.Visible = false;
+            // 
+            // lblHistoricalDataPage
+            // 
+            lblHistoricalDataPage.BackColor = Color.White;
+            lblHistoricalDataPage.Dock = DockStyle.Fill;
+            lblHistoricalDataPage.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHistoricalDataPage.ForeColor = Color.FromArgb(18, 38, 63);
+            lblHistoricalDataPage.Name = "lblHistoricalDataPage";
+            lblHistoricalDataPage.Padding = new Padding(24);
+            lblHistoricalDataPage.TabIndex = 3;
+            lblHistoricalDataPage.Text = "Historical Data\n\nLive and historical graphs of each sensor's readings will appear here.\n\nComing in P19 – Dashboard improvements and visualization.";
+            lblHistoricalDataPage.Visible = false;
+            // 
+            // lblSettingsPage
+            // 
+            lblSettingsPage.BackColor = Color.White;
+            lblSettingsPage.Dock = DockStyle.Fill;
+            lblSettingsPage.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSettingsPage.ForeColor = Color.FromArgb(18, 38, 63);
+            lblSettingsPage.Name = "lblSettingsPage";
+            lblSettingsPage.Padding = new Padding(24);
+            lblSettingsPage.TabIndex = 4;
+            lblSettingsPage.Text = "Settings\n\nThe warning and critical thresholds for each room and sensor will be shown and changed here.\n\nComing with the ThresholdManager (P13).";
+            lblSettingsPage.Visible = false;
             //
             // statusStrip
             //
@@ -459,6 +501,9 @@ namespace HCRMS
         private ColumnHeader colLevel;
         private Button btnAcknowledge;
         private DataGridView dgvAlarms;
+        private Label lblControlsPage;
+        private Label lblHistoricalDataPage;
+        private Label lblSettingsPage;
         private StatusStrip statusStrip;
         private ToolStripStatusLabel lblDatabase;
         private System.Windows.Forms.Timer tmrPoll;
